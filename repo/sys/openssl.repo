@@ -1,0 +1,3 @@
+openssl git - git://git.openssl.org/openssl.git
+
+# openssl targz openssl-1.0.1e http://www.openssl.org/source/openssl-1.0.1e.tar.gz
