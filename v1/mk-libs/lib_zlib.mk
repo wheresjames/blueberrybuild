@@ -5,7 +5,7 @@ default_target: all
 # Project settings
 #-------------------------------------------------------------------
 PRJ_NAME := zlib
-PRJ_DESC := ZLIB Compression Library
+PRJ_DESC := Compression Library
 PRJ_DEPS := zlib
 PRJ_TYPE := lib
 PRJ_INCS := 

@@ -82,13 +82,13 @@ $(info = Output   : $(LNK_OUTFILE) )
 ifneq ($(MAKEDBGFILES),)
 $(info = Input    : $(LNK_FILES_HR) )
 endif
-$(info -------------------------------------------------------------)
+$(info =------------------------------------------------------------)
 endif
 
 all: $(BLDOUT)
 	@echo 
-	@echo $(PRJ_NAME) - Build complete	
-	@echo -------------------------------------------------------------
+	@echo = $(PRJ_NAME) - Build complete	
+	@echo =------------------------------------------------------------
 	@echo 
 
 clean: 

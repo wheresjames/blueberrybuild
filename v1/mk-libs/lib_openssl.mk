@@ -5,7 +5,7 @@ default_target: all
 # Project settings
 #-------------------------------------------------------------------
 PRJ_NAME := openssl
-PRJ_DESC := OpenSSL - Cryptography and SSL/TLS Toolkit
+PRJ_DESC := Cryptography and SSL/TLS Toolkit
 PRJ_DEPS := openssl
 PRJ_TYPE := lib
 PRJ_INCS := openssl openssl/include openssl/crypto \
