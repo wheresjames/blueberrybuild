@@ -26,19 +26,55 @@ ifeq ($(TGT_BITS),64b)
 endif
 
 #-------------------------------------------------------------------
-# Compiler
+# GCC Compiler
+#-------------------------------------------------------------------
+#
+# -c        Compile or assemble the source files, but do not link.
+# -o [f]    Place output in file [f].
+# -D [n]    Predefine [n] as a macro.
+# -I [d]    Add the directory [d] to the list of directories to be 
+#           searched for header files.
+# -Wall     Turns on all optional warnings which are desirable for 
+#           normal code.
+#
+# -O0       No optimizations.  Reduce compilation time and make 
+#           debugging produce the expected results. This is the 
+#           default. 
+# -O / -O1  With -O, the compiler tries to reduce code size and 
+#           execution time, without performing any optimizations 
+#           that take a great deal of compilation time. 
+# -O2       Optimize even more. GCC performs nearly all supported 
+#           optimizations that do not involve a space-speed 
+#           tradeoff. As compared to -O, this option increases both 
+#           compilation time and the performance of the generated 
+#           code. 
+# -O3       Optimize yet more. -O3 turns on all optimizations 
+#           specified by -O2 and also turns on the optimizations 
+#           that do not involve a space-speed tradeoff.
+#
+# -MF       write the generated dependency rule to a file
+# -MG       assume missing headers will be generated and don't stop 
+#           with an error
+# -MM       generate dependency rule for prerequisite, skipping 
+#           system headers
+# -MP       add phony target for each header to prevent errors when 
+#           header is missing
+# -MT       add a target to the generated dependency
+# -MMD      Like -MD except mention only user header files, not 
+#           system header files. 
+#
 #-------------------------------------------------------------------
 
 # C compiler
 ifeq ($($(BLD)_EXT),c)
 
-	$(BLD)_make_cmd = $(PRE)gcc -c $($(BLD)_CFLAGS) $(3) "$(1)" -o "$(2)"
+	$(BLD)_make_cmd = $(PRE)gcc -c -MMD -MT $(1) $($(BLD)_CFLAGS) $(4) "$(2)" -o "$(3)"
 	$(BLD)_EXT_OUT := o
 
 # c++ compiler
 else ifeq ($($(BLD)_EXT),cpp)
 
-	$(BLD)_make_cmd = $(PRE)g++ -c $($(BLD)_CFLAGS) $(3) "$(1)" -o "$(2)"
+	$(BLD)_make_cmd = $(PRE)g++ -c -MMD -MT $(1) $($(BLD)_CFLAGS) $(4) "$(2)" -o "$(3)"
 	$(BLD)_EXT_OUT := o
 
 # Library linker

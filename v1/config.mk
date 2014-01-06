@@ -8,14 +8,22 @@ default_target: all
 #-------------------------------------------------------------------
 # Configure base paths
 #-------------------------------------------------------------------
+
+# Folder names
 BBBVDIR ?= v1
 LIBPATH ?= lib
 BINPATH ?= bin
 
+# Full paths
 BLDROOT ?= $(BBBROOT)/..
 MAKROOT ?= $(BBBROOT)/$(BBBVDIR)
 LIBROOT ?= $(BLDROOT)/$(LIBPATH)
 BINROOT ?= $(BLDROOT)/$(BINPATH)
+
+# Check for absolute or relative path
+ifneq ($(patsubst ../%,,$(BBBROOT)),)
+	CFG_ABSROOT := 1
+endif
 
 #-------------------------------------------------------------------
 # Check dependencies
@@ -94,14 +102,20 @@ $(info )
 $(info =============================================================)
 $(info = Building : $(PRJ_NAME) - $(PRJ_DESC) )
 $(info =============================================================)
-$(info = TGT      : $(TGT_DESC) )
-$(info = BLD      : $(BLD_DESC) )
-$(info = Version  : $(VER) )
-$(info = Build #  : $(VER_BUILD) )
+$(info = TGT       : $(TGT_DESC) )
+$(info = BLD       : $(BLD_DESC) )
+$(info = Version   : $(VER) )
+$(info = Build #   : $(VER_BUILD) )
 ifneq ($(CYGBLD),)
-$(info = cygwin   : YES )
+$(info = cygwin    : YES )
 endif
-$(info -------------------------------------------------------------)
+ifneq ($(CFG_ABSROOT),)
+$(info = Abs Root  : YES )
+endif
+ifeq ($(CYGBLD)$(CFG_ABSROOT),11)
+$(info = !WARNING! : CYGWIN + ABSPATH, dependency tracking OFF )
+endif
+$(info =------------------------------------------------------------)
 
 #-------------------------------------------------------------------
 # Directories

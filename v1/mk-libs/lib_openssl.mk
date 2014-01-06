@@ -18,6 +18,7 @@ PRJ_LINK := cmdfile
 #-------------------------------------------------------------------
 # Configure build
 #-------------------------------------------------------------------
+BBBROOT ?= ../..
 include $(BBBROOT)/v1/config.mk
 
 # Create include files

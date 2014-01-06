@@ -56,7 +56,16 @@ endif
 $(BLD)_OUTFILES := $(subst $($(BLD)_FUL)/,$($(BLD)_OBJROOT)/,$($(BLD)_SOURCES:.$($(BLD)_EXT)=.$($(BLD)_EXT_OUT)))
 $(BLD)_OUTFILES_HR := $(foreach f,$($(BLD)_OUTFILES),$(\n)    $(subst $($(BLD)_OBJROOT)/,,$(f)))
 
+#-------------------------------------------------------------------
+# Include dependency files
+#-------------------------------------------------------------------
+ifneq ($(CYGBLD)$(CFG_ABSROOT),11)
+include $(wildcard $($(BLD)_OBJROOT)/*.d)
+endif
+
+#-------------------------------------------------------------------
 # Show config info
+#-------------------------------------------------------------------
 ifneq ($(MAKEDBG),)
 $(info ---------------------- build-dir.mk -------------------------)
 $(info = Source   : $($(BLD)_FUL) )
@@ -78,15 +87,13 @@ $($(BLD)_OBJROOT):
 
 REQ_DIRS := $(REQ_DIRS) $($(BLD)_OBJROOT)
 
-#BLDOUT := $($(BLD)_OBJROOT)
-
 # How to build these sources
 $($(BLD)_OBJROOT)/%.$($(BLD)_EXT_OUT) : $($(BLD)_FUL)/%.$($(BLD)_EXT)
 ifneq ($(MAKEDBG),)
-	$(call $(BLD)_make_cmd,$(call NPAT,$<),$(call NPAT,$@), $($(BLD)_DEFINES) $($(BLD)$(TAG)_INCLUDES) )
+	$(call $(BLD)_make_cmd,$@,$(call NPAT,$<),$(call NPAT,$@), $($(BLD)_DEFINES) $($(BLD)$(TAG)_INCLUDES) )
 else
 	@echo ": $(call NPAT,$<)"
-	@$(call $(BLD)_make_cmd,$(call NPAT,$<),$(call NPAT,$@), $($(BLD)_DEFINES) $($(BLD)$(TAG)_INCLUDES) )
+	@$(call $(BLD)_make_cmd,$@,$(call NPAT,$<),$(call NPAT,$@), $($(BLD)_DEFINES) $($(BLD)$(TAG)_INCLUDES) )
 endif
 
 # Chain into dependencies
