@@ -118,7 +118,7 @@ endif
 # Show config info
 #-------------------------------------------------------------------
 ifneq ($(MAKEDBG),)
-$(info ------------------------ build.mk --------------------------)
+$(info =----------------------- build.mk --------------------------)
 $(info = Ext          : $($(BLD)_EXT) )
 $(info = Tool         : $($(BLD)_TOOL) )
 $(info = Invoke       : $($(BLD)_CC) )
@@ -129,7 +129,7 @@ $(info = Includes     : $($(BLD)_INCLUDES) )
 $(info = Exc Dirs     : $($(BLD)_DEX) )
 $(info = Exc Files    : $($(BLD)_FEX) )
 $(info = Exc Files Sub: $($(BLD)_FSX) )
-$(info -------------------------------------------------------------)
+$(info =------------------------------------------------------------)
 endif
 
 # Command that handles each individual directory

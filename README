@@ -16,7 +16,7 @@ The commands below are simply 'bbb' you should substitute the following...
 
 Windows		- ./bbb.bat
 Linux		- ./bbb.sh
-Mac			- ./bbb.sh
+MacOS		- ./bbb.sh
 
 bbb has the following basic command line structure
 
@@ -24,9 +24,8 @@ bbb [command] [projects] [ext]
 
 command = build, checkout, compile, diff, archive, makepatch, applypatch
 
-	build		- checkout, applypatch, compile
 	checkout	- Checks out the specified projects
-	compile		- Compiles and links the specified projects
+	update		- Updates the specified projects
 	diff		- Creates diffs of the working directories
 	archive		- Creates arechives of the working directories
 	makepatch	- Makes patches of the working directories
@@ -39,12 +38,12 @@ command = build, checkout, compile, diff, archive, makepatch, applypatch
 // To get started with a windows build on cygwin, 
 // do something like the following...
 
-mkdir buildroot
-cd buildroot
-git clone https://code.google.com/p/blueberrybuild bbb
-cd bbb
-bbb checkout zlib
-make TGT=windows BBBROOT=/cygdrive/c/bbbroot/bbb GCCROOT=/cygdrive/c/mingw32-win
+	mkdir buildroot
+	cd buildroot
+	git clone https://code.google.com/p/blueberrybuild bbb
+	cd bbb
+	bbb checkout zlib
+	make TGT=windows BBBROOT=/cygdrive/c/bbbroot/bbb GCCROOT=/cygdrive/c/mingw32-win
 
 
 //------------------------------------------------------------------
@@ -53,11 +52,11 @@ make TGT=windows BBBROOT=/cygdrive/c/bbbroot/bbb GCCROOT=/cygdrive/c/mingw32-win
 
 Following directory structure is assumed
 
--- [any directory]
+-- [any directory]		- Build Root
 	|
 	+---[bbb]			- This project
 	|
-	+---[lib]			- The libs will go here
+	+---[lib]			- Librarys will go here
 	|
 	+---[bin]			- Compiled code will go here
 	|

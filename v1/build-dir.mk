@@ -58,14 +58,14 @@ $(BLD)_OUTFILES_HR := $(foreach f,$($(BLD)_OUTFILES),$(\n)    $(subst $($(BLD)_O
 
 # Show config info
 ifneq ($(MAKEDBG),)
-$(info ---------------------- build-dir.mk -------------------------)
+$(info =--------------------- build-dir.mk -------------------------)
 $(info = Source   : $($(BLD)_FUL) )
 $(info = Tag      : $(TAG) )
 ifneq ($(MAKEDBGFILES),)
 $(info = Input    : $($(BLD)_FUL) $($(BLD)_SORUCES_HR) )
 $(info = Output   : $($(BLD)_OBJROOT) $($(BLD)_OUTFILES_HR) )
 endif
-$(info -------------------------------------------------------------)
+$(info =------------------------------------------------------------)
 endif
 
 # Export variable name, thanks MadScientist ;)

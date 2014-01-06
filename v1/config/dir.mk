@@ -26,17 +26,17 @@ REQ_DIRS := $(REQ_DIRS) $(DIR_OBJROOT)
 # Debug
 #-------------------------------------------------------------------
 ifneq ($(MAKEDBG),)
-$(info ------------------------- dir.mk ----------------------------)
+$(info =------------------------ dir.mk ----------------------------)
 $(info = Root Dir : $(BLDROOT) )
 $(info = Make Dir : $(MAKROOT) )
 $(info = Lib Dir  : $(LIBROOT) )
 $(info = Out Dir  : $(DIR_OBJROOT) )
 ifneq ($(CYGBLD),)
-$(info ---------- CYGWIN -----------)
+$(info =--------- CYGWIN -----------)
 $(info = Root Dir : $(call NPAT,$(BLDROOT) ))
 $(info = Make Dir : $(call NPAT,$(MAKROOT) ))
 $(info = Lib Dir  : $(call NPAT,$(LIBROOT) ))
 $(info = Out Dir  : $(call NPAT,$(DIR_OBJROOT) ))
 endif
-$(info -------------------------------------------------------------)
+$(info =------------------------------------------------------------)
 endif
