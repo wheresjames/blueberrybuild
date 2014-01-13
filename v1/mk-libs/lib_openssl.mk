@@ -9,7 +9,8 @@ PRJ_DESC := Cryptography and SSL/TLS Toolkit
 PRJ_DEPS := openssl
 PRJ_TYPE := lib
 PRJ_INCS := openssl openssl/include openssl/crypto \
-			openssl/crypto/asn1 openssl/crypto/evp
+			openssl/crypto/asn1 openssl/crypto/evp \
+			openssl/crypto/modes
 PRJ_LIBS :=
 PRJ_DEFS := NO_WINDOWS_BRAINDEATH I386_ONLY OPENSSL_NO_ASM
 PRJ_OBJR := _deps
@@ -37,7 +38,7 @@ BLD_DPT := *
 BLD_DEX := cvs store threads jpake md2 rc5
 BLD_FEX := lpdir_nyi lpdir_unix lpdir_vms lpdir_wince lpdir_win32 lpdir_win \
 		   LPdir_nyi LPdir_unix LPdir_vms LPdir_wince LPdir_win32 LPdir_win \
-		   o_dir_test \
+		   armcap o_dir_test \
 		   aes/aes_core \
 		   bf/bf_cbc bf/bf_opts bf/bfspeed bf/bftest \
 		   bio/bss_rtcp \

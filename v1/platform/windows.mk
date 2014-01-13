@@ -12,19 +12,23 @@ else
 endif
 
 ifeq ($(PRJ_TYPE),lib)
-	CFG_OUTEXT := lib
+	CFG_OUTPRE := 
+	CFG_OUTEXT := .lib
 else
-	CFG_OUTEXT := exe
+	CFG_OUTPRE := 
+	CFG_OUTEXT := .exe
 endif
 
-#ifneq ($(findstring gui,$(PRJ_GUIT)),)
-#	ifeq ($(BUILD),vs)
-#		PRJ_DEFS := $(PRJ_DEFS) OEX_GUI
-#		PRJ_OSLB := $(PRJ_OSLB) qtmain
-#		CFG_LFLAGS := $(CFG_LFLAGS) /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
-#	else
-#		CFG_LFLAGS := $(CFG_LFLAGS) -mwindows
-#	endif
-#endif
+ifeq ($(TGT_TYPE),debug)
+	CFG_OUTEXT := _d$(CFG_OUTEXT)
+endif
+
+ifneq ($(findstring gui,$(PRJ_TYPE)),)
+	ifeq ($(BUILD),vs)
+		CFG_LFLAGS := $(CFG_LFLAGS) /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
+	else
+		CFG_LFLAGS := $(CFG_LFLAGS) -mwindows
+	endif
+endif
 
 

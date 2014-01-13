@@ -1,0 +1,26 @@
+
+unset IFS
+
+EXT_REPO=repo
+EXT_DIFF=diff
+EXT_PTCH=patch
+
+DIR_CURRENT=$PWD
+
+DIR_LPRJ=${DIR_CURRENT}/repo
+DIR_LMAK=${DIR_CURRENT}/mk
+DIR_LBIN=${DIR_CURRENT}/sh
+DIR_LPAT=${DIR_CURRENT}/pat
+DIR_LBLD=${DIR_CURRENT}/v1
+
+DIR_LIB=${DIR_CURRENT}/../lib
+DIR_BIN=${DIR_CURRENT}/../bin
+DIR_DNL=${DIR_CURRENT}/../dnl
+DIR_UPL=${DIR_CURRENT}/../upl
+DIR_ARC=${DIR_CURRENT}/../arc
+DIR_DIF=${DIR_CURRENT}/../dif
+DIR_PAT=${DIR_CURRENT}/../pat
+
+# Hmmmm...
+#SVN_OPTIONS=--trust-server-cert --non-interactive
+

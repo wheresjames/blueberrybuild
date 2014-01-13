@@ -30,8 +30,6 @@ ifneq ($($(BLD)_FSX),)
 	$(BLD)_SOURCES := $(foreach f,$($(BLD)_SOURCE_FILTR),$($(BLD)_FUL)/$(f))
 endif
 
-# $(info ########### $(foreach file,$($(BLD)_FEX),$($(BLD)_DIR)/$(file).$($(BLD)_EXT)))
-
 # Exclude certain files
 ifneq ($($(BLD)_FEX),)
 	$(BLD)_EXCLUDE := $(foreach file,$($(BLD)_FEX),$($(BLD)_DIR)/$(file).$($(BLD)_EXT))

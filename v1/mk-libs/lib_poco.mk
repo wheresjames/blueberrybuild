@@ -48,6 +48,12 @@ else ifeq ($(TGT_PLATFORM),android)
 
 endif
 
+ifeq ($(TGT_TYPE),debug)
+$(LIBROOT)/poco/Foundation/include/pcre_printint.src: $(BLDOUT)
+	( echo "static void pcre_printint(pcre *external_re, FILE *f, BOOL print_lengths) {}" ) > $@
+BLDOUT := $(LIBROOT)/poco/Foundation/include/pcre_printint.src
+endif
+
 #-------------------------------------------------------------------
 # File locations
 #-------------------------------------------------------------------
@@ -56,6 +62,9 @@ BLD_DEX :=
 BLD_FSX := _
 BLD_FEX := OpcomChannel	SyslogChannel
 BLD_DIR := $(LIBROOT)/poco/Foundation/src
+ifneq ($(BLD_PLATFORM),windows)
+	BLD_FEX := $(BLD_FEX) EventLogChannel WindowsConsoleChannel
+endif
 include $(BBBROOT)/v1/build.mk
 
 BLD := subs

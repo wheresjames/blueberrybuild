@@ -20,7 +20,7 @@ include $(MAKROOT)/tools/$(TGT_COMPILER).mk
 
 LNK_FILELOG := $(DIR_OBJROOT)/$(PRJ_NAME)_log.txt
 LNK_FILELST := $(DIR_OBJROOT)/$(PRJ_NAME)_objs.txt
-LNK_OUTFILE := $(DIR_BINROOT)/$(PRJ_NAME).$(CFG_OUTEXT)
+LNK_OUTFILE := $(DIR_BINROOT)/$($(BLD)_OUTPRE)$(PRJ_NAME)$($(BLD)_OUTEXT)
 LNK_FILES_HR := $(foreach f,$(LINK_FILES_NPAT),$(\n)    $(f))
 
 # Do we use a file to work around the windows command line limit?
