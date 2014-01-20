@@ -14,7 +14,8 @@ endif
 #-------------------------------------------------------------------
 # Include directories
 #-------------------------------------------------------------------
-$(BLD)$(TAG)_INCLUDES := $($(BLD)_INCLUDES) $(call $(BLD)_make_includes,,$(call NPAT,$($(BLD)_FUL)))
+#$(BLD)$(TAG)_INCLUDES := $($(BLD)_INCLUDES) $(call $(BLD)_make_includes,,$(call NPAT,$($(BLD)_FUL)))
+$(BLD)$(TAG)_INCLUDES := $($(BLD)_INCLUDES)
 
 #-------------------------------------------------------------------
 # Source files
@@ -58,7 +59,7 @@ $(BLD)_OUTFILES_HR := $(foreach f,$($(BLD)_OUTFILES),$(\n)    $(subst $($(BLD)_O
 # Include dependency files
 #-------------------------------------------------------------------
 ifneq ($(CYGBLD)$(CFG_ABSROOT),11)
-include $(wildcard $($(BLD)_OBJROOT)/*.d)
+-include $(wildcard $($(BLD)_OBJROOT)/*.d)
 endif
 
 #-------------------------------------------------------------------
@@ -80,10 +81,11 @@ $($(BLD)_OBJROOT)/%.$($(BLD)_EXT_OUT) : BLD := $(BLD)
 $($(BLD)_OBJROOT)/%.$($(BLD)_EXT_OUT) : TAG := $(TAG)
 
 # Make output directory
-$($(BLD)_OBJROOT):
-	-mkdir -p $@
+$($(BLD)_OBJROOT)/mkdir.log:
+	-mkdir -p $(subst /mkdir.log,,$@)
+	@echo "$(VER) / $(VER_BUILD)" >> $@
 
-REQ_DIRS := $(REQ_DIRS) $($(BLD)_OBJROOT)
+REQ_DIRS := $(REQ_DIRS) $($(BLD)_OBJROOT)/mkdir.log
 
 # How to build these sources
 $($(BLD)_OBJROOT)/%.$($(BLD)_EXT_OUT) : $($(BLD)_FUL)/%.$($(BLD)_EXT)
@@ -95,7 +97,7 @@ else
 endif
 
 # Chain into dependencies
-#BLDOUT := $($(BLD)_OUTFILES)
+#BLDCHAIN := $($(BLD)_OUTFILES)
 
 # Add to linker items?
 ifeq ($(BLD_NOLINK),)

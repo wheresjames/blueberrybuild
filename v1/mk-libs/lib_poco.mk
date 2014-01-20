@@ -49,9 +49,9 @@ else ifeq ($(TGT_PLATFORM),android)
 endif
 
 ifeq ($(TGT_TYPE),debug)
-$(LIBROOT)/poco/Foundation/include/pcre_printint.src: $(BLDOUT)
+$(LIBROOT)/poco/Foundation/include/pcre_printint.src: $(BLDCHAIN)
 	( echo "static void pcre_printint(pcre *external_re, FILE *f, BOOL print_lengths) {}" ) > $@
-BLDOUT := $(LIBROOT)/poco/Foundation/include/pcre_printint.src
+BLDCHAIN := $(LIBROOT)/poco/Foundation/include/pcre_printint.src
 endif
 
 #-------------------------------------------------------------------

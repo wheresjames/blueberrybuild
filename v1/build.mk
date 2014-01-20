@@ -5,6 +5,10 @@ ifeq ($(ABORT_UNSUPPORTED),)
 # Input parameters
 #-------------------------------------------------------------------
 
+# Tool executable
+$(BLD)_EXE := $(BLD_EXE)
+BLD_EXE :=
+
 # Source patterns
 $(BLD)_FPT := $(BLD_FPT)
 BLD_FPT :=
@@ -41,6 +45,10 @@ BLD_FEX :=
 $(BLD)_FSX := $(BLD_FSX)
 BLD_FSX :=
 
+# Includes for this specific project
+$(BLD)_INC := $(BLD_INC)
+BLD_INC :=
+
 # Tool set
 $(BLD)_TOOL := $(BLD_TOOL)
 BLD_TOOL :=
@@ -57,6 +65,11 @@ endif
 # use 'cpp' as default extension
 ifeq ($($(BLD)_EXT),)
 	$(BLD)_EXT := cpp
+endif
+
+# Default executable
+ifeq ($($(BLD)_EXE),)
+	$(BLD)_EXE := $($(BLD)_EXT)
 endif
 
 # Default file pattern
@@ -88,6 +101,7 @@ $(BLD)_DEFINES := $($(BLD)_DEFINES) $(call $(BLD)_make_defines,$(CFG_DEFS))
 #-------------------------------------------------------------------
 # Include directories
 #-------------------------------------------------------------------
+$(BLD)_INCLUDES := $($(BLD)_INCLUDES) $(call $(BLD)_make_includes,$(call NPAT,$(LIBROOT))/,$($(BLD)_INC))
 $(BLD)_INCLUDES := $($(BLD)_INCLUDES) $(call $(BLD)_make_includes,$(call NPAT,$(LIBROOT))/,$(PRJ_INCS))
 
 #-------------------------------------------------------------------

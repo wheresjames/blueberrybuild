@@ -1,7 +1,10 @@
 
-# Total dependencies
-
-makefiles = $(wildcard *.mk)
+# Projects to build
+ifneq ($(PRJ),)
+	makefiles = $(foreach p,$(PRJ),lib_$(p).mk)
+else
+	makefiles = $(wildcard *.mk)
+endif
 
 .PHONY all: $(makefiles)
 .PHONY rebuild: $(makefiles)

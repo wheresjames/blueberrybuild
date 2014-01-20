@@ -23,9 +23,9 @@ BBBROOT ?= ../..
 include $(BBBROOT)/v1/config.mk
 
 # Create include files
-$(LIBROOT)/openssl/include/openssl/opensslconf.h: $(BLDOUT)
+$(LIBROOT)/openssl/include/openssl/opensslconf.h: $(BLDCHAIN)
 	cd "$(LIBROOT)/openssl"; perl Configure gcc no-shared no-asm zlib
-BLDOUT := $(LIBROOT)/openssl/include/openssl/opensslconf.h
+BLDCHAIN := $(LIBROOT)/openssl/include/openssl/opensslconf.h
 
 #-------------------------------------------------------------------
 # File locations

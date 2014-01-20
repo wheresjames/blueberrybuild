@@ -13,15 +13,15 @@ $(BLD)_make_includes = $(foreach v,$(2),-I"$(1)$(v)")
 $(BLD)_make_defines = $(foreach v,$(1),-D$(v))
 
 #-------------------------------------------------------------------
-# Switches
+# Switches - -std=c99 -Wall
 #-------------------------------------------------------------------
 ifeq ($(TGT_TYPE),debug)
-	$(BLD)_CFLAGS := $($(BLD)_CFLAGS) -s -DDEBUG=1 -D_DEBUG -Wall
+	$(BLD)_CFLAGS := $($(BLD)_CFLAGS) -s -DDEBUG=1 -D_DEBUG
 	$(BLD)_LFLAGS := $($(BLD)_LFLAGS) -g
 	$(BLD)_OUTPRE := $(CFG_OUTPRE)
 	$(BLD)_OUTEXT := $(CFG_OUTEXT)
 else
-	$(BLD)_CFLAGS := $($(BLD)_CFLAGS) -s -DNDEBUG=1 -Wall -O3
+	$(BLD)_CFLAGS := $($(BLD)_CFLAGS) -s -DNDEBUG=1 -O3
 	ifneq ($(PRJ_TYPE),dll)
 		$(BLD)_LFLAGS := $($(BLD)_LFLAGS)	 := -s
 	endif
@@ -74,24 +74,24 @@ endif
 #-------------------------------------------------------------------
 
 # C compiler
-ifeq ($($(BLD)_EXT),c)
+ifeq ($($(BLD)_EXE),c)
 
 	$(BLD)_make_cmd = $(PRE)gcc -c -MMD -MT $(1) $($(BLD)_CFLAGS) $(4) "$(2)" -o "$(3)"
 	$(BLD)_EXT_OUT := o
 
 # c++ compiler
-else ifeq ($($(BLD)_EXT),cpp)
+else ifeq ($($(BLD)_EXE),cpp)
 
 	$(BLD)_make_cmd = $(PRE)g++ -c -MMD -MT $(1) $($(BLD)_CFLAGS) $(4) "$(2)" -o "$(3)"
 	$(BLD)_EXT_OUT := o
 
 # Library linker
-else ifeq ($($(BLD)_EXT),lib)
+else ifeq ($($(BLD)_EXE),lib)
 
 	$(BLD)_make_cmd = $(PRE)ar cq $(2) $(1)
 	$(BLD)_make_cmd_file = $(PRE)ar cq $(2) @$(1)
 
-else ifeq ($($(BLD)_EXT),exe)
+else ifeq ($($(BLD)_EXE),exe)
 
 	# Windows gui?
 	$(BLD)_LFLAGS := $($(BLD)_LFLAGS) $(if $(findstring gui,$(PRJ_TYPE)),-mwindows,)
