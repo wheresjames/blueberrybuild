@@ -1,6 +1,6 @@
 
 # What to build
-BUILDDIRS := mk-libs
+BUILDDIRS := mk-libs mk-apps
 
 .PHONY $(BUILDDIRS) :
 	$(MAKE) $(MAKECMDGOALS) -C $@ 

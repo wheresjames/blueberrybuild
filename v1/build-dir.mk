@@ -37,6 +37,9 @@ ifneq ($($(BLD)_FEX),)
 	$(BLD)_SOURCES := $(filter-out $($(BLD)_EXCLUDE),$($(BLD)_SOURCES))
 endif
 
+# Specific files
+# $(BLD)_SOURCES := $($(BLD)_SOURCE_FILES) $(foreach f,$($(BLD)_FLS),$($(BLD)_FUL)/$(f).$($(BLD)_EXT))
+
 # Human readable list of final file list
 $(BLD)_SORUCES_HR := $(foreach f,$($(BLD)_SOURCES),$(\n)    $(subst $($(BLD)_FUL)/,,$(f)))
 

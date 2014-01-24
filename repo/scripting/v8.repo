@@ -1,2 +1,3 @@
 v8 svn - http://v8.googlecode.com/svn/trunk
-
+v8/build/gyp svn - http://gyp.googlecode.com/svn/trunk
+v8/third_party/icu svn - https://src.chromium.org/chrome/trunk/deps/third_party/icu46

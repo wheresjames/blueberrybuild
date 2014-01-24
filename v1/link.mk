@@ -58,15 +58,29 @@ endif
 else
 
 #-------------------------------------------------------------------
+# Libraries
+#-------------------------------------------------------------------
+LNK_PRELIB := $(LNK_PRELIB)
+LNK_POSTLIB := $(LNK_POSTLIB) $(call $(BLD)_make_lib_paths,$(DIR_BINROOT)) \
+							  $(call $(BLD)_make_lib_paths,$(PRJ_LIBP)) \
+							  $(call $(BLD)_make_libs,$(PRJ_LIBS))
+
+ifeq ($(TGT_PLATFORM),windows)							  
+	LNK_POSTLIB := $(LNK_POSTLIB) $(call $(BLD)_make_lib_paths,$(PRJ_WLIB))
+else ifeq ($(TGT_PLATFORM),posix)
+	LNK_POSTLIB := $(LNK_POSTLIB) $(call $(BLD)_make_lib_paths,$(PRJ_PLIB))
+endif
+
+#-------------------------------------------------------------------
 # Output file
 #-------------------------------------------------------------------
 $(LNK_OUTFILE): BLD := $(BLD)
 $(LNK_OUTFILE): $(BLDCHAIN)
 ifneq ($(MAKEDBG),)
-	$(call $(BLD)_make_cmd,$(LINK_FILES_NPAT),$(call NPAT,$@))
+	$(call $(BLD)_make_cmd,$(LINK_FILES_NPAT),$(call NPAT,$@),$(LNK_PRELIB),$(LNK_POSTLIB))
 else
 	@echo $@
-	@$(call $(BLD)_make_cmd,$(LINK_FILES_NPAT),$(call NPAT,$@))
+	@$(call $(BLD)_make_cmd,$(LINK_FILES_NPAT),$(call NPAT,$@),$(LNK_PRELIB),$(LNK_POSTLIB))
 endif
 
 endif

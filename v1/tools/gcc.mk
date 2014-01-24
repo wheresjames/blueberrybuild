@@ -10,7 +10,12 @@ endif
 # Compiler options macros
 #-------------------------------------------------------------------
 $(BLD)_make_includes = $(foreach v,$(2),-I"$(1)$(v)")
+$(BLD)_make_libs = $(foreach v,$(1),-l"$(v)")
+$(BLD)_make_lib_paths = $(foreach v,$(1),-L"$(v)")
 $(BLD)_make_defines = $(foreach v,$(1),-D$(v))
+
+# x86_64-w64-mingw32-g++ -s -export-all-symbols -fno-leading-underscore -static-libgcc -static-libstdc++ -static    ../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static/_0_obj/join/def/stdafx.obj ../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static/_0_obj/join/def/join.obj   ../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static/_0_obj/join/_rc/ver.obj   -o ../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static/join.exe    -L../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static   -loexlib    -lole32 -lgdi32 -lws2_32 -lavicap32 -lmsvfw32
+# x86_64-w64-mingw32-g++ -s -export-all-symbols -fno-leading-underscore -static-libgcc -static-libstdc++ -static    ../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static/_0_obj/join/def/stdafx.obj ../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static/_0_obj/join/def/join.obj   ../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static/_0_obj/join/_rc/ver.obj   -o ../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static/join.exe    -L../../../../deftbuild/v1/../../bin3/windows-gcc-win64-x64-mingw64-static   -loexlib    -lole32 -lgdi32 -lws2_32 -lavicap32 -lmsvfw32
 
 #-------------------------------------------------------------------
 # Switches - -std=c99 -Wall
@@ -23,7 +28,7 @@ ifeq ($(TGT_TYPE),debug)
 else
 	$(BLD)_CFLAGS := $($(BLD)_CFLAGS) -s -DNDEBUG=1 -O3
 	ifneq ($(PRJ_TYPE),dll)
-		$(BLD)_LFLAGS := $($(BLD)_LFLAGS)	 := -s
+		$(BLD)_LFLAGS := $($(BLD)_LFLAGS) -s
 	endif
 	$(BLD)_OUTPRE := $(CFG_OUTPRE)
 	$(BLD)_OUTEXT := $(CFG_OUTEXT)
@@ -31,6 +36,10 @@ endif
 
 ifeq ($(TGT_BITS),64b)
 	$(BLD)_CFLAGS := $($(BLD)_CFLAGS) -m64
+endif
+
+ifeq ($(TGT_LINK),static)
+	$(BLD)_LFLAGS := $($(BLD)_LFLAGS) -static -export-all-symbols
 endif
 
 #-------------------------------------------------------------------
@@ -96,7 +105,7 @@ else ifeq ($($(BLD)_EXE),exe)
 	# Windows gui?
 	$(BLD)_LFLAGS := $($(BLD)_LFLAGS) $(if $(findstring gui,$(PRJ_TYPE)),-mwindows,)
 
-	$(BLD)_make_cmd = $(PRE)g++ $(CFG_LFLAGS) $($(BLD)_LFLAGS) $(2) $(1)
+	$(BLD)_make_cmd = $(PRE)g++ $(CFG_LFLAGS) $($(BLD)_LFLAGS) $(3) $(1) -o "$(2)" $(4)
 	
 endif
 

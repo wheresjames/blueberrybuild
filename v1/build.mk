@@ -9,6 +9,10 @@ ifeq ($(ABORT_UNSUPPORTED),)
 $(BLD)_EXE := $(BLD_EXE)
 BLD_EXE :=
 
+# Source file list
+$(BLD)_FLS := $(BLD_FLS)
+BLD_FLS :=
+
 # Source patterns
 $(BLD)_FPT := $(BLD_FPT)
 BLD_FPT :=

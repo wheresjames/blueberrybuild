@@ -33,7 +33,7 @@ endif
 ifneq ($(strip $(PRJ_DEPS)),)
 	EXISTS_LIBSRC := $(subst $(LIBROOT)/,,$(wildcard $(foreach dep,$(PRJ_DEPS),$(LIBROOT)/$(strip $(dep)))))
 else
-	EXISTS_LIBSRC := nodeps
+	EXISTS_LIBSRC := 
 endif
 
 # Did we find all the dependencies

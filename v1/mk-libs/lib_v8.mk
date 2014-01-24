@@ -20,6 +20,24 @@ PRJ_OBJR := _deps
 BBBROOT ?= ../..
 include $(BBBROOT)/v1/config.mk
 
+ifneq ($(CYGBLD),)
+	# Also include malloc.h in allocation.cc
+	PRJ_DEFS := $(PRJ_DEFS) _aligned_malloc=__mingw_aligned_malloc \
+							_aligned_free=__mingw_aligned_free \
+							_CRT_RAND_S
+							#errno_t=int
+endif
+
+# Select architecture
+ifeq ($(TGT_PROC)-$(TGT_BITS),x86-32b)
+	PRJ_DEFS := $(PRJ_DEFS) V8_TARGET_ARCH_IA32
+else ifeq ($(TGT_PROC)-$(TGT_BITS),x86-64b)
+	PRJ_DEFS := $(PRJ_DEFS) V8_TARGET_ARCH_X64
+endif
+
+$(LIBROOT)/v8/build/gyp/gyp: $(BLDCHAIN)
+	cd "$(LIBROOT)/v8"; make dependencies
+BLDCHAIN := $(LIBROOT)/v8/build/gyp/gyp
 
 #-------------------------------------------------------------------
 # File locations
@@ -27,14 +45,27 @@ include $(BBBROOT)/v1/config.mk
 BLD := foundation
 BLD_EXT := cc
 BLD_EXE := cpp
-BLD_DEX := 		   
-BLD_FSX := platform-
-BLD_FEX := d8 d8-posix d8-readline i18n v8dll-main
+BLD_DEX :=
+BLD_FSX := platform- d8-
+BLD_FEX := i18n mksnapshot v8dll-main
+BLD_SUB := . utils platform
 BLD_DIR := $(LIBROOT)/v8/src
 ifeq ($(TGT_PLATFORM),windows)
-BLD_FEX := $(BLD_FEX) d8-posix
+BLD_FLS := $(BLD_FLS) d8-windows platform-windows
 else
-BLD_FEX := $(BLD_FEX) d8-windows
+BLD_FLS := $(BLD_FLS) d8-posix.cc platform-posix.cc
+endif
+include $(BBBROOT)/v1/build.mk
+
+BLD := foundation_platform
+BLD_EXT := cc
+BLD_EXE := cpp
+BLD_DEX := 		   
+BLD_DIR := $(LIBROOT)/v8/src
+ifeq ($(TGT_PLATFORM),windows)
+BLD_FPT := $(BLD_FLS) d8-windows platform-win32
+else
+BLD_FPT := $(BLD_FLS) d8-posix.cc platform-posix.cc
 endif
 include $(BBBROOT)/v1/build.mk
 
