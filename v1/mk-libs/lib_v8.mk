@@ -30,10 +30,14 @@ endif
 
 # Select architecture
 ifeq ($(TGT_PROC)-$(TGT_BITS),x86-32b)
-	PRJ_DEFS := $(PRJ_DEFS) V8_TARGET_ARCH_IA32
+	PRJ_DEFS := $(PRJ_DEFS) V8_TARGET_ARCH_IA32 V8_HOST_ARCH_IA32
 else ifeq ($(TGT_PROC)-$(TGT_BITS),x86-64b)
-	PRJ_DEFS := $(PRJ_DEFS) V8_TARGET_ARCH_X64
+	PRJ_DEFS := $(PRJ_DEFS) V8_TARGET_ARCH_X64 V8_HOST_ARCH_X64
 endif
+
+#ifeq ($(TGT_COMPILER),gcc)
+#	PRJ_DEFS := $(PRJ_DEFS) __USE_GNU
+#endif
 
 $(LIBROOT)/v8/build/gyp/gyp: $(BLDCHAIN)
 	cd "$(LIBROOT)/v8"; make dependencies
@@ -48,7 +52,7 @@ BLD_EXE := cpp
 BLD_DEX :=
 BLD_FSX := platform- d8-
 BLD_FEX := i18n mksnapshot v8dll-main
-BLD_SUB := . utils platform
+BLD_SUB := . utils platform extensions
 BLD_DIR := $(LIBROOT)/v8/src
 ifeq ($(TGT_PLATFORM),windows)
 BLD_FLS := $(BLD_FLS) d8-windows platform-windows
@@ -65,7 +69,7 @@ BLD_DIR := $(LIBROOT)/v8/src
 ifeq ($(TGT_PLATFORM),windows)
 BLD_FPT := $(BLD_FLS) d8-windows platform-win32
 else
-BLD_FPT := $(BLD_FLS) d8-posix.cc platform-posix.cc
+BLD_FPT := $(BLD_FLS) d8-posix platform-posix platform-linux
 endif
 include $(BBBROOT)/v1/build.mk
 
@@ -80,6 +84,12 @@ else
 BLD_INC := v8/src/x64
 BLD_DIR := $(LIBROOT)/v8/src/x64
 endif
+include $(BBBROOT)/v1/build.mk
+
+BLD := native
+BLD_EXT := cc
+BLD_EXE := cpp
+BLD_DIR := $(LIBROOT)/v8/out/native/obj/gen
 include $(BBBROOT)/v1/build.mk
 
 #-------------------------------------------------------------------

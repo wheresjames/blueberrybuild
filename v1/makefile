@@ -1,4 +1,6 @@
 
+default_target: all
+
 # What to build
 BUILDDIRS := mk-libs mk-apps
 

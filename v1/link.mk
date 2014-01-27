@@ -66,9 +66,9 @@ LNK_POSTLIB := $(LNK_POSTLIB) $(call $(BLD)_make_lib_paths,$(DIR_BINROOT)) \
 							  $(call $(BLD)_make_libs,$(PRJ_LIBS))
 
 ifeq ($(TGT_PLATFORM),windows)							  
-	LNK_POSTLIB := $(LNK_POSTLIB) $(call $(BLD)_make_lib_paths,$(PRJ_WLIB))
+	LNK_POSTLIB := $(LNK_POSTLIB) $(call $(BLD)_make_libs,$(PRJ_WLIB))
 else ifeq ($(TGT_PLATFORM),posix)
-	LNK_POSTLIB := $(LNK_POSTLIB) $(call $(BLD)_make_lib_paths,$(PRJ_PLIB))
+	LNK_POSTLIB := $(LNK_POSTLIB) $(call $(BLD)_make_libs,$(PRJ_PLIB))
 endif
 
 #-------------------------------------------------------------------

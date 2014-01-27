@@ -20,6 +20,7 @@ $(BLD)_make_defines = $(foreach v,$(1),-D$(v))
 #-------------------------------------------------------------------
 # Switches - -std=c99 -Wall
 #-------------------------------------------------------------------
+
 ifeq ($(TGT_TYPE),debug)
 	$(BLD)_CFLAGS := $($(BLD)_CFLAGS) -s -DDEBUG=1 -D_DEBUG
 	$(BLD)_LFLAGS := $($(BLD)_LFLAGS) -g
@@ -90,6 +91,8 @@ ifeq ($($(BLD)_EXE),c)
 
 # c++ compiler
 else ifeq ($($(BLD)_EXE),cpp)
+
+	$(BLD)_CFLAGS := $($(BLD)_CFLAGS) -fpermissive
 
 	$(BLD)_make_cmd = $(PRE)g++ -c -MMD -MT $(1) $($(BLD)_CFLAGS) $(4) "$(2)" -o "$(3)"
 	$(BLD)_EXT_OUT := o

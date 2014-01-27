@@ -7,7 +7,7 @@
 
 ifeq ($(PRJ_TYPE),lib)
 	CFG_OUTPRE := lib
-	CFG_OUTEXT :=
+	CFG_OUTEXT := .a
 else
 	CFG_OUTPRE :=
 	CFG_OUTEXT :=

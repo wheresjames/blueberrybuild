@@ -14,6 +14,8 @@ PRJ_DEPS := bbjs
 BBBROOT ?= ../..
 include $(BBBROOT)/v1/config.mk
 
+ifeq ($(ABORT_UNSUPPORTED),)
+
 # What to build
 BUILDDIRS := $(LIBROOT)/bbjs
 
@@ -23,3 +25,5 @@ BUILDDIRS := $(LIBROOT)/bbjs
 .PHONY all: $(BUILDDIRS)
 .PHONY rebuild: $(BUILDDIRS)
 .PHONY clean: $(BUILDDIRS)
+
+endif
